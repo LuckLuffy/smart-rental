@@ -18,6 +18,72 @@
     供路由守卫（router/index.js）和各个页面读取当前用户信息。
 -->
 
+<template>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>🏠 智慧租房管理系统</h1>
+
+      <!-- ========== 登录模式 ========== -->
+      <template v-if="mode === 'login'">
+        <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" label-position="top">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="loginForm.username" placeholder="请输入用户名" size="large" />
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="loginForm.password" type="password" placeholder="请输入密码" size="large" show-password @keyup.enter="handleLogin" />
+          </el-form-item>
+          <el-button type="primary" size="large" style="width:100%" :loading="loginLoading" @click="handleLogin">
+            登 录
+          </el-button>
+        </el-form>
+        <div class="switch-mode">
+          还没有账号？<a href="javascript:void(0)" @click="switchToRegister">立即注册</a>
+        </div>
+      </template>
+
+      <!-- ========== 注册模式 ========== -->
+      <template v-if="mode === 'register'">
+        <el-form ref="regFormRef" :model="regForm" :rules="regRules" label-position="top">
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="regForm.username" placeholder="请输入用户名" size="large" />
+          </el-form-item>
+          <el-form-item label="邮箱" prop="email">
+            <el-input v-model="regForm.email" placeholder="请输入邮箱地址" size="large" />
+          </el-form-item>
+          <el-form-item label="验证码" prop="code">
+            <div style="display:flex;gap:8px;">
+              <el-input v-model="regForm.code" placeholder="请输入验证码" size="large" style="flex:1" />
+              <el-button :disabled="codeCountdown > 0" @click="sendCode" size="large">
+                {{ codeCountdown > 0 ? codeCountdown + 's' : '获取验证码' }}
+              </el-button>
+            </div>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="regForm.password" type="password" placeholder="至少6位密码" size="large" show-password />
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input v-model="regForm.confirmPassword" type="password" placeholder="请再次输入密码" size="large" show-password />
+          </el-form-item>
+          <el-button type="success" size="large" style="width:100%" :loading="regLoading" @click="handleRegister">
+            注 册
+          </el-button>
+        </el-form>
+        <div class="switch-mode">
+          已有账号？<a href="javascript:void(0)" @click="switchToLogin">返回登录</a>
+        </div>
+      </template>
+
+      <!-- 提示信息 -->
+      <div class="tips">
+        <div>💡 提示：</div>
+        <div>· 注册需要有效的邮箱地址以接收验证码</div>
+        <div>· 注册成功后账号类型默认为「租客」</div>
+        <div>· 如需房东或管理员账号，请联系系统管理员</div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup>
 /**
  * Login.vue - 登录/注册页面逻辑
