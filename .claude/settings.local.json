@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(java -version)",
+      "Bash(mvn -version)",
+      "Bash(npm -v)",
+      "Bash(mysql --version)",
+      "Bash(mysql -u root -p123456 -e \"SELECT 1\")",
+      "Bash(where npm *)",
+      "Bash(rm -f \"D:/Desktop/Program/智慧租房/frontend/src/components/HelloWorld.vue\" \"D:/Desktop/Program/智慧租房/frontend/src/assets/vite.svg\" \"D:/Desktop/Program/智慧租房/frontend/src/assets/vue.svg\" \"D:/Desktop/Program/智慧租房/frontend/src/assets/hero.png\" \"D:/Desktop/Program/智慧租房/frontend/src/style.css\" \"D:/Desktop/Program/智慧租房/frontend/README.md\")",
+      "Bash(rm -rf \"D:/Desktop/Program/智慧租房/frontend/.vscode\")"
+    ]
+  }
+}
